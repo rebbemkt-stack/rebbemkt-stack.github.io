@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rebbe Club</title>
+<meta name="description" content="Rebbe Club: la comunidad de Rebe para perder peso sin dietas imposibles. Dietas, entrenos, directos y un grupo de mujeres que te sostiene. Suscripción sin permanencia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: móvil primero. Bandas alternas frambuesa / rosa empolvado / blanco roto; carrusel deslizable para los cambios */
+:root{
+  --berry:#8c2a4c;
+  --berry-deep:#6b2236;   /* color del logo */
+  --pink:#ffd9e5;
+  --blush:#f8e9ee;
+  --paper:#fffafb;
+  --ink:#2b1620;
+  --muted:#7a5c68;
+  --line:#ecd3dc;
+  --wa:#1f8f4e;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(2.6rem,9vw,4.6rem)}
+h2{font-size:clamp(1.9rem,6vw,3rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+em{font-style:italic;color:var(--berry)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.band{padding-block:clamp(56px,9vw,104px)}
+.video-band{background:var(--blush)}
+.video-band .head{text-align:center;max-width:640px;margin:0 auto 28px}
+.video-band .head p.sub{color:var(--muted);margin-top:10px}
+.vid{max-width:920px;margin:0 auto;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(107,34,54,.22);background:#000;aspect-ratio:16/9}
+.vid iframe{display:block;width:100%;height:100%;border:0}
+.yt{all:unset;cursor:pointer;display:block;width:100%;height:100%;position:relative}
+.yt img{display:block;width:100%;height:100%;object-fit:cover}
+.yt .play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:var(--berry);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .15s ease}
+.yt:hover .play{transform:scale(1.06)}
+.yt:focus-visible{outline:3px solid var(--pink);outline-offset:-3px}
+.yt .play svg{width:34px;height:34px;fill:#fff;margin-left:4px}
+.video-band .cta{text-align:center;margin-top:28px}
+.head{display:grid;gap:12px;max-width:640px}
+.eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--berry)}
+.lead{font-size:1.1rem;color:var(--muted);max-width:56ch}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 26px;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;border:2px solid transparent;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:3px solid var(--berry);outline-offset:3px}
+.btn-main{background:var(--berry);color:#fff}
+.btn-main:hover{background:var(--berry-deep)}
+.btn-pink{background:var(--pink);color:var(--berry-deep)}
+.btn-pink:hover{background:#fff}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.btn-ghost svg{width:20px;height:20px;fill:currentColor}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:480px){.btns .btn{width:100%}}
+
+/* cabecera: transparente sobre la portada, frambuesa al bajar */
+header{position:fixed;top:0;left:0;right:0;z-index:20;padding-top:env(safe-area-inset-top,0px);background:transparent;transition:background .25s ease}
+header.solid{background:var(--berry-deep);box-shadow:0 6px 20px -12px rgba(0,0,0,.5)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo img{height:38px;width:auto}
+nav{display:flex;align-items:center;gap:22px;font-size:.95rem;font-weight:500}
+nav a{text-decoration:none;color:#f3d6df}
+nav a:hover{color:#fff}
+nav .btn{padding:9px 16px;font-size:.88rem}
+@media (max-width:820px){nav a:not(.btn){display:none}}
+
+/* portada: foto a sangre con degradado, texto abajo a la izquierda (como rebbeclub.com) */
+.hero{position:relative;min-height:min(100svh,900px);display:flex;align-items:flex-end;color:#fff;background:#1c1116;overflow:hidden}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 30%}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,17,22,.15) 0%,rgba(28,17,22,.35) 38%,rgba(28,17,22,.82) 68%,rgba(28,17,22,.96) 100%);z-index:1}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-block:120px 44px}
+.hero-text{display:grid;gap:22px;max-width:620px}
+.hero .kicker{font-family:var(--body);font-size:.8rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:#f2b8cb}
+.hero h1{font-family:"Cormorant Garamond",var(--display);font-weight:500;font-size:clamp(3.2rem,13vw,5.6rem);line-height:.98;letter-spacing:-.01em}
+.hero h1 em{color:#f2b8cb;font-style:italic;font-weight:500}
+.hero .lead{color:#efe1e6;font-size:1.12rem;font-weight:400;line-height:1.75;max-width:40ch}
+.hero .lead b{color:#fff;font-weight:600}
+.btn-hero{justify-self:start;background:#f2b8cb;color:var(--berry-deep);text-transform:uppercase;letter-spacing:.16em;font-size:.92rem;padding:20px 30px;gap:16px}
+.btn-hero:hover{background:#fff}
+@media (max-width:480px){.btn-hero{justify-self:stretch}}
+.hero-proof{display:flex;align-items:center;gap:14px;margin-top:4px}
+.hero-proof .ico{width:46px;height:46px;border-radius:50%;background:#f2b8cb;display:grid;place-items:center;flex:none}
+.hero-proof .ico svg{width:22px;height:22px;stroke:var(--berry-deep);fill:none;stroke-width:1.6}
+.hero-proof strong{display:block;font-size:1.05rem;font-weight:700}
+.hero-proof span{color:#efe1e6;font-size:.98rem}
+.founder{display:flex;align-items:center;gap:10px;color:#efe1e6;font-size:.98rem;letter-spacing:.03em}
+.founder::before{content:"";width:8px;height:8px;border-radius:50%;background:#f2b8cb}
+.hero-date{color:#f2b8cb;font-weight:600;font-size:.92rem}
+@media (min-width:900px){.hero-bg{object-position:70% 30%}.hero::before{background:linear-gradient(90deg,rgba(28,17,22,.92) 0%,rgba(28,17,22,.7) 45%,rgba(28,17,22,.15) 80%)}.hero{align-items:center}}
+
+/* te suena */
+.loop{list-style:none;margin:28px 0 0;padding:0;display:grid;border-top:1px solid var(--line)}
+.loop li{padding:16px 0;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:baseline;font-size:1.05rem}
+.loop span{font-family:var(--display);color:var(--berry);min-width:3.8em;font-size:.95rem}
+.hug{margin-top:26px;background:var(--blush);border-radius:20px;padding:22px 24px;font-size:1.1rem;color:var(--berry-deep)}
+.hug strong{font-family:var(--display);font-size:1.35rem;display:block;margin-bottom:4px}
+.cycle-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,5vw,64px);align-items:start}
+@media (max-width:820px){.cycle-grid{grid-template-columns:1fr}}
+
+/* dentro */
+.inside{background:var(--blush)}
+.apps{display:flex;justify-content:center;align-items:flex-end;gap:clamp(10px,3vw,32px);margin:40px auto 0;max-width:900px}
+.apps figure{margin:0;flex:0 1 260px;text-align:center}
+.apps figure.mid{flex-basis:290px}
+.app-phone{background:#2b2228;padding:7px;border-radius:clamp(20px,4vw,38px);box-shadow:0 24px 50px -18px rgba(43,22,32,.55)}
+.app-phone img{width:100%;aspect-ratio:9/18;object-fit:cover;object-position:top;border-radius:clamp(14px,3.2vw,31px)}
+@media (max-width:620px){.apps{justify-content:flex-start;align-items:flex-end;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * max(20px,env(safe-area-inset-left,0px)));padding:0 20px 8px;scroll-padding:0 20px;scrollbar-width:none}.apps::-webkit-scrollbar{display:none}.apps figure,.apps figure.mid{flex:0 0 62%;scroll-snap-align:center}}
+.apps figcaption{font-family:var(--display);color:var(--berry-deep);font-size:clamp(1rem,2.4vw,1.35rem);margin-top:12px}
+.screen-cap{font-size:.9rem;color:var(--muted);margin:14px auto 0;max-width:1000px;text-align:center}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 32px;margin-top:48px}
+.pillars div{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:6px;align-content:start}
+.pillars p{color:var(--muted);font-size:.98rem}
+.extras{margin-top:40px;background:var(--paper);border-radius:22px;padding:22px 24px;display:grid;gap:14px}
+.extras ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.extras li{background:var(--blush);color:var(--berry-deep);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.92rem}
+@media (max-width:860px){.pillars{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pillars{grid-template-columns:1fr}.devices{padding-right:22%}.phone{width:38%}.lesson ul{display:none}}
+
+/* pasos */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,3vw,32px);margin-top:36px}
+.step{border-top:2px solid var(--berry);padding-top:18px;display:grid;gap:8px}
+.step b{font-family:var(--display);font-size:2.4rem;color:var(--berry);line-height:1}
+.step p{color:var(--muted)}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+
+/* prueba real: carrusel */
+.proofreal{background:var(--berry-deep);color:#fff;overflow:hidden}
+.proofreal .eyebrow{color:var(--pink)}
+.proofreal h2 em{color:var(--pink)}
+.proofreal .lead{color:#f3d6df}
+.rail-top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.arrows{display:flex;gap:10px}
+.arrows button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:1.2rem;cursor:pointer}
+.arrows button:hover{background:rgba(255,255,255,.1)}
+.arrows button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:32px max(20px,env(safe-area-inset-right,0px)) 12px max(20px,env(safe-area-inset-left,0px));margin:0 calc(-1 * max(20px,env(safe-area-inset-left,0px)));scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.rail::-webkit-scrollbar{display:none}
+.card{flex:0 0 min(78%,320px);scroll-snap-align:start;background:#fff;color:var(--ink);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.card .ph{aspect-ratio:4/5;background:var(--blush);position:relative;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.card .ph .t{position:absolute;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:rgba(255,250,251,.92);color:var(--berry-deep)}
+.card .ph .t.after{background:var(--berry);color:#fff}
+.card .ph.stack .t.before{top:10px;left:10px}.card .ph.stack .t.after{top:calc(50% + 10px);left:10px}
+.card .ph.side .t.before{top:10px;left:10px}.card .ph.side .t.after{top:10px;left:calc(50% + 10px)}
+.card .info{padding:14px 16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card .name{font-weight:700}
+.card .when{font-size:.88rem;color:var(--muted)}
+.kg{font-family:var(--display);font-size:1.6rem;color:var(--berry);line-height:1;white-space:nowrap}
+.swipe{font-size:.88rem;color:#f3d6df;margin-top:6px}
+
+/* lo que dicen ellas */
+.voices{background:var(--paper)}
+.vrail{padding-top:28px}
+.voice{flex:0 0 min(82%,340px);scroll-snap-align:start;margin:0;background:var(--blush);border-radius:22px;padding:26px 24px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;position:relative}
+.voice::before{content:"“";font-family:var(--display);font-size:4.5rem;line-height:.6;color:var(--berry);opacity:.35;height:24px}
+.voice blockquote{margin:0;font-family:var(--display);font-size:1.18rem;line-height:1.45;color:var(--ink)}
+.voice figcaption{display:flex;flex-direction:column;font-size:.9rem;color:var(--muted)}
+.voice figcaption b{color:var(--berry-deep);font-size:1rem}
+.swipe.dark{color:var(--muted)}
+
+/* para quien */
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,28px);margin-top:32px}
+.fit div{border-radius:22px;padding:26px;display:grid;gap:14px;align-content:start}
+.fit .yes{background:var(--blush)}
+.fit .no{border:1px solid var(--line)}
+.fit ul{margin:0;padding-left:20px;display:grid;gap:8px}
+@media (max-width:760px){.fit{grid-template-columns:1fr}}
+
+/* planes */
+.plans{background:var(--blush)}
+.value{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:12px 28px;align-items:center;background:var(--paper);border-radius:22px;padding:22px 24px}
+.value strong{font-family:var(--display);font-size:clamp(1.9rem,6vw,2.6rem);line-height:1;color:var(--berry);display:block}
+.value span{font-size:.9rem;color:var(--muted)}
+.value p{color:var(--ink);max-width:62ch}
+@media (max-width:700px){.value{grid-template-columns:1fr}}
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;align-items:stretch}
+.plan{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px 22px 24px;display:flex;flex-direction:column;gap:12px;position:relative}
+.plan.best{border:2px solid var(--berry);box-shadow:0 24px 48px -28px rgba(107,34,54,.55)}
+.tag{position:absolute;top:-13px;left:22px;background:var(--berry);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 12px}
+.plan h3{font-family:var(--body);font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;color:var(--berry)}
+.price{font-family:var(--display);font-size:2.5rem;line-height:1;font-variant-numeric:tabular-nums}
+.price small{font-family:var(--body);font-size:1rem;color:var(--muted);font-weight:500}
+.was{font-size:.92rem;color:var(--muted)}
+.was s{opacity:.8}
+.save{align-self:flex-start;background:#e3f4ea;color:#1c6b3d;font-weight:700;font-size:.85rem;border-radius:999px;padding:4px 10px}
+.per{color:var(--muted);font-size:.92rem}
+.plan .btn{margin-top:auto;width:100%}
+.all{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px 24px;list-style:none;padding:0;font-size:.96rem}
+.all li{display:flex;gap:10px;align-items:baseline}
+.all li::before{content:"✓";color:var(--berry);font-weight:700}
+.terms{margin-top:20px;padding:16px 18px;border-radius:16px;background:var(--paper);font-size:.95rem;color:var(--ink);max-width:760px}
+.guide{margin-top:44px;display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:var(--berry-deep);color:#fff;border-radius:28px;padding:32px 36px;position:relative;overflow:hidden}
+.guide::after{content:"";position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,217,229,.08)}
+.guide img{width:100%;height:auto;border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,.35);transform:rotate(-3deg)}
+.guide .eyebrow{color:var(--pink)}
+.guide h3{font-family:var(--display);font-weight:500;font-size:clamp(1.6rem,4.5vw,2.3rem);line-height:1.1;margin:8px 0 10px}
+.guide h3 em{color:var(--pink)}
+.guide p{color:#f3d6df;max-width:58ch}
+.guide ul{list-style:none;padding:0;margin:14px 0 20px;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.guide li{position:relative;padding-left:24px;color:#fff;font-size:.95rem}
+.guide li::before{content:"✓";position:absolute;left:0;color:var(--pink);font-weight:700}
+.guide .buy{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.guide .price{font-family:var(--display);font-size:2.2rem;line-height:1}
+.guide .price small{font-family:var(--body);font-size:.85rem;color:#f3d6df;margin-left:6px}
+.guide .gift{margin-top:14px;font-size:.9rem;color:var(--pink)}
+@media (max-width:760px){.guide{grid-template-columns:1fr;padding:28px 22px;gap:22px}.guide img{max-width:170px;margin:0 auto}.guide ul{grid-template-columns:1fr}.guide .buy .btn{width:100%}}
+@media (max-width:900px){.plan-grid{grid-template-columns:1fr}.plan.best{order:-1}.all{grid-template-columns:1fr}}
+
+/* quien soy (al final) */
+.me{background:var(--berry-deep);color:#fff}
+.me-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.me h2 em{color:var(--pink)}
+.me .eyebrow{color:var(--pink)}
+.me-text{display:grid;gap:16px;min-width:0}
+.me-text p{color:#f8dfe7;max-width:56ch}
+.me-text p.big{font-family:var(--display);font-size:1.35rem;color:#fff;line-height:1.35}
+.me-media{position:relative;min-width:0}
+.me-media .change{border-radius:20px;border:6px solid #fff;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.me-media .face{position:absolute;left:-14px;bottom:-22px;width:clamp(96px,26%,140px);aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:50% 12%;border:5px solid var(--berry-deep)}
+.me-media .kgbig{position:absolute;right:14px;top:14px;background:var(--pink);color:var(--berry-deep);font-family:var(--display);font-weight:700;font-size:1.6rem;border-radius:999px;padding:6px 16px}
+.facts{display:flex;flex-wrap:wrap;gap:24px;margin-top:6px}
+.facts div{display:flex;flex-direction:column}
+.facts strong{font-family:var(--display);font-size:2rem;color:var(--pink);line-height:1}
+.facts span{font-size:.88rem;color:#f3d6df}
+.sign{font-family:var(--display);font-style:italic;font-size:1.6rem;color:var(--pink)}
+@media (max-width:820px){.me-grid{grid-template-columns:1fr}.me-media{max-width:440px;margin-bottom:20px}}
+
+/* faq */
+.faq{max-width:800px;margin-top:20px}
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-weight:600;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--display);font-size:1.5rem;color:var(--berry);line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--muted);max-width:65ch}
+summary:focus-visible{outline:3px solid var(--berry);outline-offset:4px;border-radius:6px}
+
+/* final */
+.final{background:var(--berry-deep);color:#fff;text-align:center}
+.final .wrap{display:grid;gap:18px;justify-items:center}
+.final h2 em{color:var(--pink)}
+.final p{color:#f3d6df;max-width:52ch}
+.final .btns{justify-content:center}
+.final .logo-big{width:120px;margin-bottom:4px}
+footer{background:var(--berry-deep);color:#e9c7d3;font-size:.88rem;padding-block:0 32px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:center;text-align:center;border-top:1px solid rgba(255,255,255,.15);padding-top:24px}
+footer a{color:#fff;text-decoration:none;font-weight:600}
+footer .legal{flex-basis:100%;font-size:.8rem;color:#c9a0b0}
+
+/* whatsapp flotante (móvil) */
+.wa-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;background:var(--wa);color:#fff;border-radius:999px;padding:13px 18px;display:none;align-items:center;gap:8px;font-weight:700;text-decoration:none;box-shadow:0 12px 28px -10px rgba(0,0,0,.4)}
+.wa-float svg{width:20px;height:20px;fill:#fff}
+@media (max-width:820px){.wa-float{display:inline-flex;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s ease,transform .2s ease}.wa-float.show{opacity:1;transform:none;pointer-events:auto}}
+</style>
+<meta property="og:title" content="Rebbe Club · No tienes que hacerlo sola">
+<meta property="og:description" content="La comunidad de Rebe para perder peso sin dietas imposibles.">
+<meta property="og:image" content="img/rebe-gym.jpg">
+<link rel="icon" href="img/logo-berry.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Rebbe Club, inicio"><img src="img/logo-pink.png" alt="Rebbe Club" width="408" height="245"></a>
+    <nav>
+      <a href="#dentro">Qué incluye</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#planes">Planes</a>
+      <a href="#rebe">Quién soy</a>
+      <a class="btn btn-pink" href="#planes" data-goatcounter-click="nav-entrar">Quiero entrar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero-bg" src="img/rebe-gym.jpg" alt="Rebe entrenando en el gimnasio" width="1100" height="1682">
+    <div class="wrap">
+      <div class="hero-text">
+        <p class="kicker">Comunidad Rebbe Club</p>
+        <h1>No tienes que hacerlo <em>sola.</em></h1>
+        <p class="lead">Rebbe Club es la comunidad para mujeres que quieren perder peso, ponerse en forma y aprender a hacerlo <b>sin dietas imposibles ni empezar de cero cada lunes.</b></p>
+        <a class="btn btn-hero" href="#planes" data-goatcounter-click="hero-entrar">Quiero formar parte <span aria-hidden="true">→</span></a>
+        <div class="hero-proof">
+          <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></span>
+          <div><strong>+200 mujeres</strong><span>ya han dado el paso</span></div>
+        </div>
+        <p class="hero-date">Próximo desafío: 15 de noviembre</p>
+        <p class="founder">Rebeca · fundadora de Rebbe Club</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="band video-band" id="video">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Conóceme en 1 minuto</p>
+        <h2>Esto es <em>Rebbe Club.</em></h2>
+      </div>
+      <div class="vid">
+        <button type="button" class="yt" id="rebe-video" data-id="ZcnLttQujNc" aria-label="Ver el vídeo de presentación de Rebbe Club">
+          <img src="img/video-poster.jpg" alt="" loading="lazy" width="1280" height="720">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+      </div>
+      <div class="cta"><a class="btn btn-main" href="#planes" data-goatcounter-click="video-entrar">Quiero formar parte <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+  <script>
+  (function(){var b=document.getElementById('rebe-video');if(!b)return;b.addEventListener('click',function(){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';f.title='Vídeo de presentación de Rebbe Club';f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;b.replaceWith(f);try{window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path:'video-play',title:'Vídeo web reproducido',event:true})}catch(e){}});})();
+  </script>
+
+  <!-- TE SUENA -->
+  <section class="band">
+    <div class="wrap cycle-grid">
+      <div class="head">
+        <p class="eyebrow">¿Te suena?</p>
+        <h2>El ciclo de siempre, <em>otra vez desde cero.</em></h2>
+      </div>
+      <div>
+        <ol class="loop">
+          <li><span>Lunes</span>Empiezas con todas las ganas.</li>
+          <li><span>Día 10</span>Te saltas un entreno, luego otro.</li>
+          <li><span>Día 14</span>Comes algo "prohibido" y te sientes fatal.</li>
+          <li><span>Día 15</span>Lo dejas y te prometes empezar el lunes.</li>
+        </ol>
+        <div class="hug"><strong>No es culpa tuya.</strong>No te falta fuerza de voluntad. Te falta un plan que encaje en tu vida y un grupo que no te deje sola.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUE INCLUYE -->
+  <section class="inside band" id="dentro">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Qué hay dentro</p>
+        <h2>Todo lo que necesitas, <em>en un solo sitio.</em></h2>
+        <p class="lead">Nada más pagar entras en <b>la app del club</b>, con tus entrenos, tu dieta, las clases y tu evolución, y en los grupos de WhatsApp.</p>
+      </div>
+      <div class="apps" aria-label="La app de Rebbe Club en el móvil">
+        <figure><div class="app-phone"><img src="img/app-entreno.jpg" alt="Pantalla de Entreno de la app: días A, B y C, con botón para iniciar el entreno" width="900" height="1948" loading="lazy"></div><figcaption>Entreno</figcaption></figure>
+        <figure class="mid"><div class="app-phone"><img src="img/app-dieta.jpg" alt="Pantalla de Dieta de la app: plan de 1500 kcal con el desayuno y sus opciones" width="900" height="1948" loading="lazy"></div><figcaption>Dieta</figcaption></figure>
+        <figure><div class="app-phone"><img src="img/app-clases.jpg" alt="Pantalla de Clases de la app: material nuevo y cursos" width="900" height="1948" loading="lazy"></div><figcaption>Clases</figcaption></figure>
+      </div>
+      <p class="screen-cap">La app del club por dentro. La guardas en la pantalla de inicio de tu móvil y la abres como cualquier app.</p>
+      
+      <div class="pillars">
+        <div><h3>Dietas sin prohibiciones</h3><p>Cada mes, varios planes de nuestra nutricionista Luana. En la app los ves por comidas, con opciones y lista de la compra.</p></div>
+        <div><h3>Entrenos desde cero</h3><p>Rutinas para casa o gimnasio de 3 o 5 días, con vídeo de cada ejercicio, HIIT y directos. No necesitas experiencia.</p></div>
+        <div><h3>Directo conmigo cada mes</h3><p>Resolvemos dudas, revisamos el mes y ajustamos. Se quedan grabados.</p></div>
+        <div><h3>Desafío mensual con premios</h3><p>Calendario del mes con minidesafíos cada semana para que no pierdas el ritmo.</p></div>
+        <div><h3>Grupo privado</h3><p>Un grupo de avisos y otro para hablar entre vosotras y animaros cada día.</p></div>
+        <div><h3>Tu evolución en la app</h3><p>Registra tus pesos, medidas, fotos y hábitos, y desbloquea premios con tu constancia.</p></div>
+      </div>
+
+      <div class="extras">
+        <p class="eyebrow">Y además, desde el primer día</p>
+        <ul>
+          <li>Clases sobre déficit, compra y comidas</li>
+          <li>Calculadora de calorías</li>
+          <li>Calendario y check del mes</li>
+          <li>Guías y materiales nuevos cada mes</li>
+          <li>Planner antiprocrastinación</li>
+          <li>Stickers para tus historias</li>
+          <li>Cupones de descuento en marcas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRUEBA REAL -->
+  <section class="proofreal band" id="resultados">
+    <div class="wrap">
+      <div class="rail-top">
+        <div class="head">
+          <p class="eyebrow">Prueba real</p>
+          <h2>No soy yo. <em>Son ellas.</em></h2>
+          <p class="lead">Mujeres reales del club, con su cambio y su tiempo.</p>
+        </div>
+        <div class="arrows">
+          <button type="button" id="prev" aria-label="Ver el cambio anterior">←</button>
+          <button type="button" id="next" aria-label="Ver el siguiente cambio">→</button>
+        </div>
+      </div>
+      <div class="rail" id="rail">
+        <article class="card"><div class="ph side"><img src="img/hanan-ba.jpg" alt="Hanan, antes y después de perfil" loading="lazy"><span class="t before">Antes</span><span class="t after">Después</span></div><div class="info"><div><p class="name">Hanan</p><p class="when">En 1 mes</p></div><span class="kg">−3 kg</span></div></article>
+        <article class="card"><div class="ph stack"><img src="img/elsa-ba.jpg" alt="Elsa, antes y después" loading="lazy"><span class="t before">Antes</span><span class="t after">Después</span></div><div class="info"><div><p class="name">Elsa</p><p class="when">Desafío de 15 días</p></div><span class="kg">−4 kg</span></div></article>
+        <article class="card"><div class="ph stack"><img src="img/fernanda-ba.jpg" alt="Fernanda, antes y después" loading="lazy"><span class="t before">Antes</span><span class="t after">Después</span></div><div class="info"><div><p class="name">Fernanda</p><p class="when">Mes y medio</p></div><span class="kg">−4 kg</span></div></article>
+        <article class="card"><div class="ph stack"><img src="img/gio-ba.jpg" alt="Gio, antes y después de perfil" loading="lazy"><span class="t before">Antes</span><span class="t after">Después</span></div><div class="info"><div><p class="name">Gio</p><p class="when">Desafío de 15 días</p></div><span class="kg">−5 kg</span></div></article>
+        <article class="card"><div class="ph stack"><img src="img/cristina-ba.jpg" alt="Cristina, antes y después de frente y de espaldas" loading="lazy"><span class="t before">Antes</span><span class="t after">Después</span></div><div class="info"><div><p class="name">Cristina</p><p class="when">En 13 días</p></div><span class="kg">−4 kg</span></div></article>
+      </div>
+      <p class="swipe">Desliza para ver más cambios →</p>
+    </div>
+  </section>
+
+  <!-- LO QUE DICEN ELLAS -->
+  <section class="band voices">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Lo que dicen ellas</p>
+        <h2>Sus palabras, <em>no las mías.</em></h2>
+      </div>
+      <div class="rail vrail">
+        <figure class="voice"><blockquote>“El desafío me está ayudando a mejorar y a ser una versión de mí que ni yo sabía que era capaz de ser. Y tener a más personas conmigo para motivarme es lo que me hace feliz.”</blockquote><figcaption><b>Gio</b><span>Primera semana en el club</span></figcaption></figure>
+        <figure class="voice"><blockquote>“Muchísimas gracias por hacer esto posible, por animarme y darme tanto apoyo. Estoy súper orgullosa y contentísima. Me transmites una alegría y una motivación… ¡eres un amor!”</blockquote><figcaption><b>Cristina</b><span>A los 13 días</span></figcaption></figure>
+        <figure class="voice"><blockquote>“La verdad es que estoy muy motivada y contenta, me has ayudado mucho. Muchas gracias por todo, Rebe. ¡El siguiente, mejor aún!”</blockquote><figcaption><b>Elsa</b><span>Alumna del club</span></figcaption></figure>
+        <figure class="voice"><blockquote>“Estoy súper contenta. Esta semana empiezo el gimnasio a tope, que bajar me ha motivado. ¡Menos mal que te encontré en Instagram!”</blockquote><figcaption><b>Carolina</b><span>Alumna del club</span></figcaption></figure>
+      </div>
+      <p class="swipe dark">Desliza para leer más →</p>
+    </div>
+  </section>
+
+  <!-- COMO EMPIEZAS -->
+  <section class="band">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Cómo empiezas</p>
+        <h2>Tres pasos y estás dentro.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><b>1</b><h3>Eliges tu plan</h3><p>Pagas aquí mismo, de forma segura con tarjeta.</p></div>
+        <div class="step"><b>2</b><h3>Entras en la app</h3><p>Te mandamos el enlace, te registras con tu email y te damos acceso, junto con los grupos y la calculadora de calorías.</p></div>
+        <div class="step"><b>3</b><h3>Empiezas el desafío</h3><p>Con tu dieta, tus entrenos y el grupo acompañándote desde el primer día.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANES -->
+  <section class="plans band" id="planes">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Planes</p>
+        <h2>Entra en <em>Rebbe Club.</em></h2>
+        <p class="lead">Es una suscripción: eliges cada cuánto pagas y se renueva sola hasta que la canceles. Todos los planes incluyen lo mismo.</p>
+      </div>
+      <div class="value">
+        <div><strong>Menos de 1 € al día</strong><span>con el plan mensual</span></div>
+        <p>Por menos de lo que cuesta un café, tienes tu dieta, tus entrenos, directos conmigo, la app y un grupo que te acompaña cada día.</p>
+      </div>
+      <div class="plan-grid">
+        <div class="plan">
+          <h3>Mensual</h3>
+          <p class="price">29,99 € <small>/mes</small></p>
+          <p class="per">Ideal para probar. Se renueva cada mes.</p>
+          <a class="btn btn-main" href="https://buy.stripe.com/8x28wS8U25jbbNtgQ76EU0n" target="_blank" rel="noopener" data-goatcounter-click="plan-mensual">Elegir mensual</a>
+        </div>
+        <div class="plan best">
+          <span class="tag">El más elegido</span>
+          <h3>Trimestral</h3>
+          <p class="price">74,99 € <small>/3 meses</small></p>
+          <p class="was"><s>89,97 €</s> · te sale a 24,99 € al mes</p>
+          <span class="save">Ahorras 14,98 € (17 %)</span>
+          <p class="per">Se renueva cada 3 meses.</p>
+          <a class="btn btn-main" href="https://buy.stripe.com/7sYcN8c6efXP18ParJ6EU0w" target="_blank" rel="noopener" data-goatcounter-click="plan-trimestral">Elegir trimestral</a>
+        </div>
+        <div class="plan">
+          <span class="tag" style="background:var(--berry-deep)">Mejor precio al mes</span>
+          <h3>Semestral</h3>
+          <p class="price">137,99 € <small>/6 meses</small></p>
+          <p class="was"><s>179,94 €</s> · te sale a 22,99 € al mes</p>
+          <span class="save">Ahorras 41,95 € (23 %)</span>
+          <p class="per">Se renueva cada 6 meses.</p>
+          <a class="btn btn-main" href="https://buy.stripe.com/6oUdRc1rAbHz2cT43l6EU0x" target="_blank" rel="noopener" data-goatcounter-click="plan-semestral">Elegir semestral</a>
+        </div>
+      </div>
+      <ul class="all">
+        <li>Dietas y entrenos para perder peso</li>
+        <li>Clases de dieta, déficit y compra</li>
+        <li>Directo conmigo cada mes</li>
+        <li>Desafío mensual con premios</li>
+        <li>Grupo privado de WhatsApp</li>
+        <li>Acceso desde el primer día</li>
+      </ul>
+      <p class="terms"><strong>Sin permanencia.</strong> Puedes darte de baja cuando quieras: solo avísame por WhatsApp con 7 días de antelación antes de tu próximo cobro.</p>
+      <div class="guide" id="guia">
+        <img src="img/guia-portada.jpg" alt="Portada de la Guía Definitiva de Rebbe Club" loading="lazy" width="733" height="1018">
+        <div>
+          <p class="eyebrow">¿Prefieres empezar por tu cuenta?</p>
+          <h3>La Guía <em>Definitiva.</em></h3>
+          <p>Todo lo que necesitas saber para perder grasa y mantener tus resultados, en un PDF que puedes leer a tu ritmo.</p>
+          <ul>
+            <li>29 páginas, paso a paso</li>
+            <li>Calcula tus calorías y monta tus platos</li>
+            <li>Menús de ejemplo y lista de la compra</li>
+            <li>Bonus: dulces de hasta 130 kcal</li>
+          </ul>
+          <div class="buy">
+            <span class="price">8,99 €<small>pago único</small></span>
+            <a class="btn btn-pink" href="https://buy.stripe.com/8x25kG9Y6fXPcRx8jB6EU0i" target="_blank" rel="noopener" data-goatcounter-click="guia">Quiero la guía →</a>
+          </div>
+          <p class="gift">🎁 Y si después te unes al club, te descontamos los 8,99 € de tu primer pago.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIEN SOY -->
+  <section class="me band" id="rebe">
+    <div class="wrap me-grid">
+      <div class="me-media">
+        <img class="change" src="img/rebe-antes-despues.jpg" alt="Rebe antes y después de perder 22 kilos" width="880" height="720">
+        <span class="kgbig">−22 kg</span>
+        <img class="face" src="img/rebe-sonrisa.jpg" alt="Rebe sonriendo">
+      </div>
+      <div class="me-text">
+        <p class="eyebrow">Quién está detrás</p>
+        <h2>Soy Rebe y <em>he estado donde tú estás.</em></h2>
+        <p class="big">Empecé mil dietas el lunes y las dejé todas. Hasta que dejé de buscar la dieta perfecta y construí hábitos que encajaban en mi vida real.</p>
+        <p>Con mi trabajo, mi hijo y mis horarios, perdí 22 kilos. No con fuerza de voluntad infinita, sino con un método sencillo y con gente a mi lado. Rebbe Club es exactamente eso: todo lo que me funcionó a mí, ordenado para que tú no tengas que hacerlo sola.</p>
+        <div class="facts">
+          <div><strong>−22 kg</strong><span>mi propio cambio</span></div>
+          <div><strong>+200</strong><span>mujeres han pasado por el club</span></div>
+          <div><strong>1 al mes</strong><span>directo conmigo</span></div>
+        </div>
+        <p class="sign">Te espero dentro, Rebe</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Dudas</p>
+        <h2>Lo que más me preguntáis.</h2>
+      </div>
+      <div class="faq">
+        <details><summary>¿Es un pago único o una suscripción?</summary><p>Es una suscripción. Se renueva sola cada mes, cada 3 meses o cada 6 meses según el plan que elijas, hasta que la canceles. No hay permanencia.</p></details>
+        <details><summary>¿Cuánto tiempo necesito al día?</summary><p>Con 20–30 minutos es suficiente. Los entrenos están grabados, así que los haces cuando puedas. Si un día no llegas, no pasa nada: el desafío está pensado para la vida real.</p></details>
+        <details><summary>¿Necesito ir al gimnasio?</summary><p>No. Tienes rutinas para casa y para gimnasio, y todas empiezan desde cero.</p></details>
+        <details><summary>¿La dieta es muy estricta?</summary><p>No hay alimentos prohibidos. Calculas tus calorías con la calculadora y eliges entre menús con comida normal.</p></details>
+        <details><summary>¿Y si me pierdo un directo?</summary><p>Todas las clases y los directos se quedan grabados en la app. Los ves cuando te venga bien.</p></details>
+        <details><summary>¿Cómo me doy de baja?</summary><p>Escríbeme por WhatsApp con 7 días de antelación antes de tu próximo cobro y te doy de baja.</p></details>
+        <details><summary>Tengo una lesión o una intolerancia, ¿puedo entrar?</summary><p>Escríbeme antes de entrar y te digo cómo adaptamos los entrenos y la dieta a tu caso.</p></details>
+        <details><summary>¿Cuándo tengo acceso?</summary><p>Nada más pagar te mandamos el enlace de la app: te registras con tu email, te damos acceso y entras en los grupos.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="final band">
+    <div class="wrap">
+      <img class="logo-big" src="img/logo-pink.png" alt="Rebbe Club" width="408" height="245">
+      <h2>Tu cambio puede ser <em>el siguiente.</em></h2>
+      <p>Más de 200 mujeres ya han dado el paso. El desafío de noviembre empieza el 15.</p>
+      <div class="btns">
+        <a class="btn btn-pink" href="#planes" data-goatcounter-click="final-entrar">Quiero entrar</a>
+        <a class="btn btn-ghost" href="https://wa.link/a76z7a" target="_blank" rel="noopener" data-goatcounter-click="final-whatsapp">Escribirme por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Rebbe Club</span>
+    <span>Instagram <a href="https://instagram.com/rebedsants" target="_blank" rel="noopener">@rebedsants</a> · <a href="https://instagram.com/rebbe.club" target="_blank" rel="noopener">@rebbe.club</a></span>
+    <span>rebbemkt@gmail.com</span>
+    <span class="legal">El contenido de Rebbe Club es educativo y no sustituye una consulta médica o nutricional individual. Los resultados dependen de cada persona. Fotos reales de alumnas con la cara oculta para proteger su privacidad.</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.link/a76z7a" target="_blank" rel="noopener" data-goatcounter-click="flotante-whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.5 3.9 1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>¿Dudas?</a>
+
+<script>
+(function(){
+  var rail=document.getElementById('rail');
+  function step(dir){var c=rail.querySelector('.card');var w=c?c.getBoundingClientRect().width+16:300;rail.scrollBy({left:dir*w,behavior:'smooth'});}
+  document.getElementById('prev').addEventListener('click',function(){step(-1)});
+  document.getElementById('next').addEventListener('click',function(){step(1)});
+  var wa=document.querySelector('.wa-float'),hero=document.querySelector('.hero');
+  function toggle(){wa.classList.toggle('show',hero.getBoundingClientRect().bottom<0);}
+  var hd=document.querySelector('header');
+  function solid(){hd.classList.toggle('solid',window.scrollY>40);}
+  window.addEventListener('scroll',function(){toggle();solid();},{passive:true});toggle();solid();
+})();
+</script>
+
+<script data-goatcounter="https://rebedsants.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
